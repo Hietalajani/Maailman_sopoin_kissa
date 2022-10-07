@@ -4,17 +4,19 @@ import random
 from geopy import distance
 
 # Muodostetaan yhteys tietokantaan
+salasana = input("Anna salasana tietokantaan.")
 yhteys = mysql.connector.connect(
     host='localhost',
     port=3306,
     database='flight_game',
     user='root',
-    password='0232',
+    password=salasana,
     autocommit=True
 )
 
 # Tyhjä sanakirja lentokentille
 lentokentät = {}
+
 
 # Tällä funktiolla haetaan lentokenttien ICAO-koodit ja asetetaan niille arvoksi kyseisellä kentällä oleva
 # asia: herkkutikku, tonnikala, kissanminttu tai kissa. Tallennetaan ICAOt ja niiden arvot sanakirjaan lentokentät.
@@ -27,6 +29,7 @@ def kenttienarvot():
     kursori = yhteys.cursor()
     kursori.execute(sql)
     icaot = kursori.fetchall()
+    #   print(len(icaot))
     kissaluku = random.randint(0, 35)
 
     # Kissa sujahtaa lentokentälle
