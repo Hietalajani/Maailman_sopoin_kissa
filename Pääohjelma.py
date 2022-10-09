@@ -1,6 +1,11 @@
+"""
+TODO:
+- käydyt kentät pois listasta
+"""
+
 # Voisko importit tehdä jotenki tehokkaammin?
 import mysql.connector
-import random
+from random import randint
 from geopy import distance
 
 
@@ -31,7 +36,7 @@ def kenttienarvot(kentät, yhteys):
     kursori.execute(sql)
     icaot = kursori.fetchall()
     #   print(len(icaot))   # testiprintti
-    kissaluku = random.randint(0, len(icaot) - 1)
+    kissaluku = randint(0, len(icaot) - 1)
 
     # Kissa sujahtaa lentokentälle
     kentät[icaot[kissaluku][0]] = 'Kissa'
@@ -40,7 +45,7 @@ def kenttienarvot(kentät, yhteys):
     for kierros in range(6):
         successful = False
         while not successful:
-            kentänarvo = random.randint(0, 35)
+            kentänarvo = randint(0, len(icaot) - 1)
             if kentänarvo == kissaluku:
                 continue
             elif icaot[kentänarvo][0] not in kentät:
@@ -51,7 +56,7 @@ def kenttienarvot(kentät, yhteys):
     for kierros in range(5):
         successful = False
         while not successful:
-            kentänarvo = random.randint(0, 35)
+            kentänarvo = randint(0, len(icaot) - 1)
             if kentänarvo == kissaluku:
                 continue
             elif icaot[kentänarvo][0] not in kentät:
@@ -62,7 +67,7 @@ def kenttienarvot(kentät, yhteys):
     for kierros in range(4):
         successful = False
         while not successful:
-            kentänarvo = random.randint(0, 35)
+            kentänarvo = randint(0, len(icaot) - 1)
             if kentänarvo == kissaluku:
                 continue
             elif icaot[kentänarvo][0] not in kentät:
@@ -161,14 +166,20 @@ if __name__ == '__main__':
         print(f'Tässä läheisimmät kentät: {läheiset_lentokentät(icao1, peliyhteys)}')
 
         # Käyttäjä valitsee mille lentokentälle lentää
-        minne = int(input('Valitse mille lentokentälle haluat lentää seuraavaksi indeksiluvulla: '))
-        lentokenttä2 = läheiset_lentokentät(icao1, peliyhteys)[minne]
-        icao2 = icaoksi(lentokenttä2, peliyhteys)
-        herkku = herkuntarkistus(icao2, lentokentät)
+        minne = int(input('Valitse mille lentokentälle haluat lentää seuraavaksi indeksiluvulla '
+                          '(negatiivinen lopettaa pelin): '))
+        if minne < 0:
+            kisun_kärsivällisyys = 0
+        else:
+            lentokenttä2 = läheiset_lentokentät(icao1, peliyhteys)[minne]
+            icao2 = icaoksi(lentokenttä2, peliyhteys)
+            herkku = herkuntarkistus(icao2, lentokentät)
 
-        # Kärsivällisyys hiipuu/nousee
-        kisun_kärsivällisyys = kärsivällisyyshiipuu(icao1, icao2, peliyhteys, kisun_kärsivällisyys)
-        print(f'Kissan kärsivällisyyttä jäljellä: {kisun_kärsivällisyys}\n')
+            # Kärsivällisyys hiipuu/nousee
+            kisun_kärsivällisyys = kärsivällisyyshiipuu(icao1, icao2, peliyhteys, kisun_kärsivällisyys)
+            print(f'Kissan kärsivällisyyttä jäljellä: {kisun_kärsivällisyys}\n')
 
-        # muutetaan uusi sijainti nykyiseksi sijainniksi
-        icao1 = icao2
+            # muutetaan uusi sijainti nykyiseksi sijainniksi
+            icao1 = icao2
+
+    print("Kissan kärsivällisyys loppui. Hävisit pelin.")
