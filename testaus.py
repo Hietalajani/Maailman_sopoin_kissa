@@ -6,7 +6,7 @@ class Testit(unittest.TestCase):
     def testaa_pariton(self):   # esimerkin vuoksi tässä
         luku = int(input("Anna pariton luku."))
         tulos = (luku % 2 == 1)
-        print(tulos)
+        #   print(tulos)
         self.assertEqual(tulos, True)  # add assertion here
 
     """
