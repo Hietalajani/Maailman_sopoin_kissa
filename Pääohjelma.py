@@ -14,7 +14,7 @@ from geopy import distance
 # Muodostetaan yhteys tietokantaan
 # Funktio palauttaa luomansa yhteyden
 def luo_yhteys():
-    salasana = input("Anna salasana tietokantaan.")
+    salasana = input("Anna salasana tietokantaan: ")
     uusi_yhteys = mysql.connector.connect(
         host='localhost',
         port=3306,
@@ -193,7 +193,7 @@ if __name__ == '__main__':
         # Peli tarjoaa käyttäjälle läheisiä lentokenttiä joihin voi lentää
         print(f'Tässä läheisimmät kentät:\n')
 
-        #Tulostus for-loopin sisään ja tulostus selkenä numeroituna listana
+        # Tulostus for-loopin sisään ja tulostus selkenä numeroituna listana
         for indeksi, lentokenttä in enumerate(läheiset_lentokentät(icao1, peliyhteys), start=1):
             print('{0}. {1}'.format(indeksi, lentokenttä))
 
@@ -207,6 +207,8 @@ if __name__ == '__main__':
             lentokenttä2 = läheiset_lentokentät(icao1, peliyhteys)[minne-1]
             icao2 = icaoksi(lentokenttä2, peliyhteys)
             herkku = herkuntarkistus(icao2, lentokentät)
+            if herkku == "kissa".lower():
+                Kissa = True
 
             # Kärsivällisyys hiipuu/nousee
             kisun_kärsivällisyys = kärsivällisyyshiipuu(icao1, icao2, peliyhteys, kisun_kärsivällisyys)
@@ -214,5 +216,14 @@ if __name__ == '__main__':
 
             # muutetaan uusi sijainti nykyiseksi sijainniksi
             icao1 = icao2
+            if icao1 == 'EFHK' and Kissa:
+                voitto = True
+                break
 
-    print("Kissan kärsivällisyys loppui. Hävisit pelin.")
+    if kisun_kärsivällisyys <= 0:
+        voitto = False
+    if voitto:
+        print('Mahtavaa! Voitit pelin!')
+    else:
+        print('Kisun kärsivällisyys loppui. Hävisit pelin.')
+
