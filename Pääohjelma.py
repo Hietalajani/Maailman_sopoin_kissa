@@ -206,6 +206,8 @@ if __name__ == '__main__':
     Kissa = False
     voitto = None
     while kisun_kärsivällisyys > 0:
+        input('Jatka painamalla enter\n')
+
         # Peli tarjoaa käyttäjälle läheisiä lentokenttiä joihin voi lentää
         print('Tässä lähimmät kentät:\n')
 
@@ -219,7 +221,7 @@ if __name__ == '__main__':
         # Käyttäjä valitsee mille lentokentälle lentää
         try:
             minne = int(input('\nValitse mille lentokentälle haluat lentää '
-                              'seuraavaksi indeksiluvulla ''(negatiivinen lopettaa pelin): '))
+                              'seuraavaksi indeksiluvulla (negatiivinen lopettaa pelin): '))
             if minne < 0:
                 kisun_kärsivällisyys = 0
             elif 0 < minne < 6:
