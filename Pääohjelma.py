@@ -33,7 +33,8 @@ def kenttienarvot(kentät, yhteys):
     # Mielekkyyden vuoksi otetaan vain yksi lentokenttä per maa, siksi group by iso_country
     sql = '''select ident from airport 
     where continent = "EU" and type = "balloonport" and not iso_country = "RU" 
-    group by iso_country;'''
+    and not iso_country = "ES" and not iso_country = "FR" and not iso_country = "PT" 
+    and not iso_country = "IS" group by iso_country;'''
     kursori = yhteys.cursor(buffered=True)
     kursori.execute(sql)
     icaot = kursori.fetchall()
@@ -86,7 +87,8 @@ def läheiset_lentokentät(location, yhteys):
     from airport where ident = "{location}";'''
     kaikkikoordinaatit = f'''select latitude_deg, longitude_deg, name
     from airport where continent = "EU" and type = "balloonport" and not iso_country = "RU" 
-    group by iso_country;'''
+    and not iso_country = "ES" and not iso_country = "FR" and not iso_country = "PT" 
+    and not iso_country = "IS" group by iso_country;'''
     kursori = yhteys.cursor(buffered=True)
     kursori.execute(nykyisetkoordinaatit)
     nykyiset = kursori.fetchall()
