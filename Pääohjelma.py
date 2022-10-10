@@ -206,7 +206,7 @@ if __name__ == '__main__':
     voitto = None
     while kisun_kärsivällisyys > 0:
         # Peli tarjoaa käyttäjälle läheisiä lentokenttiä joihin voi lentää
-        print(f'Tässä läheisimmät kentät:\n')
+        print('Tässä lähimmät kentät:\n')
 
         # Tulostus for-loopin sisään ja tulostus selkenä numeroituna listana
         for indeksi, lentokenttä in enumerate(läheiset_lentokentät(icao1, peliyhteys), start=1):
