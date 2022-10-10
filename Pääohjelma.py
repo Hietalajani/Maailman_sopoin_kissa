@@ -156,7 +156,7 @@ def luo_pelaaja(nimi, yhteys):
     sql1 = '''insert into game(co2_consumed, co2_budget, cat_patience_used, 
     cat_patience, screen_name, location) 
     values(0, 10000, 0, 20000, %s, "EFHK");'''
-    kursori = yhteys.cursor()
+    kursori = yhteys.cursor(buffered=True)
     kursori.execute(sql1, (nimi,))
     sql2 = '''select id from game where screen_name = %s;'''
     kursori.execute(sql2, (nimi,))
