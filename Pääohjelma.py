@@ -162,7 +162,7 @@ def luo_pelaaja(nimi, yhteys):
     kursori.execute(sql2, (nimi,))
     uusi_id = kursori.fetchone()
     if uusi_id:
-        print(uusi_id[0])
+        print(f'Pelaajanumerosi on: {uusi_id[0]}')
         return uusi_id[0]   # palautetaan id, jolla voi viitata uuteen pelaajaan tietokannassa
     else:
         print("False")
