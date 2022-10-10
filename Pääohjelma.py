@@ -120,10 +120,11 @@ def icaoksi(nimi, yhteys):
 
 
 # Herkuntarkistus tarkistaa, onko uudella lentokentällä herkkua tai kissa, palauttaa herkun nimen
-def herkuntarkistus(nimi, kentät):
-    if nimi in kentät:
-        print(f'Löytyi {kentät[nimi]}')
-        return kentät[nimi]
+def herkuntarkistus(icao, kentät):
+    if icao in kentät:
+        print(f'Löytyi {kentät[icao]}')
+        nimi = kentät.pop(icao)
+        return nimi
     else:
         print('Ei löytynyt mitään :(')
         return "none"
