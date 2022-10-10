@@ -168,7 +168,7 @@ def luo_pelaaja(nimi, yhteys):
     # jotta käyttäjä ei voi syöttää omaa koodiaan. (Bobby Tables)
     sql1 = '''insert into game(co2_consumed, co2_budget, cat_patience_used, 
     cat_patience, screen_name, location) 
-    values(0, 10000, 0, 5000, %s, "EFHK");'''
+    values(0, 10000, 0, 2500, %s, "EFHK");'''
     kursori = yhteys.cursor(buffered=True)
     kursori.execute(sql1, (nimi,))
     sql2 = '''select id from game where screen_name = %s;'''
@@ -189,10 +189,10 @@ if __name__ == '__main__':
     # Tyhjä sanakirja lentokentille
     lentokentät = {}
     # määritellään kisulle kärsivällisyysarvo
-    kisun_kärsivällisyys = 5000
+    kisun_kärsivällisyys = 2500
 
     # kysytään pelaajalle nimi
-    syötetty_nimi = input("Minkä nimen valitset pelihahmollesi? ")
+    syötetty_nimi = input("Kirjoita valitsemasi pelaajanimi ja paina enter:  ")
     pelaajan_nro = luo_pelaaja(f"{syötetty_nimi}", peliyhteys)
 
     # Peli arpoo kenttien arvot
