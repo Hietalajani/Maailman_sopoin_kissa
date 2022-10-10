@@ -205,6 +205,16 @@ if __name__ == '__main__':
     käydyt = []
     Kissa = False
     voitto = None
+    # Ohjeet käyttäjälle
+    print('''
+        Yhdellä Euroopan kuumailmapallokentistä piileskelee kissa, tehtäväsi on löytää tämä kissa ja palata takaisin lähtökentälle.
+        Ohjelma kertoo sinulle viisi lähintä kuumailmapallokenttää, voit lentää mille tahansa näistä kentistä. 
+        Kentiltä voit löytää kissanminttua, tonnikalaa, herkkutikun tai et mitään.
+    	Kissan kärsivällisyydellä on rajansa ja mikäli kärsivällisyys pääsee loppumaan häviät pelin.
+    	Mitä pidempi lentomatka, sitä enemmän se kuluttaa kärsivällisyyttä.
+    	Kärsivällisyys kasvaa jos onnistut löytämään tonnikalaa, kissanminttua tai herkkutikkuja.
+    	Jos kissan kärsivällisyys loppuu häviät pelin, jos löydät kissan ja onnistut palaamaan lähtökentälle voitat pelin.
+        ''')
     while kisun_kärsivällisyys > 0:
         input('Jatka painamalla enter\n')
 
