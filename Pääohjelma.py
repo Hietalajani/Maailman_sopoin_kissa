@@ -34,7 +34,7 @@ def kenttienarvot(kentät, yhteys):
     sql = '''select ident from airport 
     where continent = "EU" and type = "balloonport" and not iso_country = "RU" 
     group by iso_country;'''
-    kursori = yhteys.cursor()
+    kursori = yhteys.cursor(buffered=True)
     kursori.execute(sql)
     icaot = kursori.fetchall()
     #   print(len(icaot))   # testiprintti
@@ -87,7 +87,7 @@ def läheiset_lentokentät(location, yhteys):
     kaikkikoordinaatit = f'''select latitude_deg, longitude_deg, name
     from airport where continent = "EU" and type = "balloonport" and not iso_country = "RU" 
     group by iso_country;'''
-    kursori = yhteys.cursor()
+    kursori = yhteys.cursor(buffered=True)
     kursori.execute(nykyisetkoordinaatit)
     nykyiset = kursori.fetchall()
     kursori.execute(kaikkikoordinaatit)
@@ -113,7 +113,7 @@ def läheiset_lentokentät(location, yhteys):
 # Uuden kentän nimi takaisin ICAO:ksi, tän ongelman voi varmaan jotenkin välttää lol
 def icaoksi(nimi, yhteys):
     sql = f'select ident from airport where name = "{nimi}";'
-    kursori = yhteys.cursor()
+    kursori = yhteys.cursor(buffered=True)
     kursori.execute(sql)
     icao = kursori.fetchone()
     return icao[0]
@@ -136,7 +136,7 @@ def kärsivällisyyshiipuu(vanhalocation, uusilocation, yhteys, kärsivällisyys
     where ident = "{vanhalocation}";'''
     kenttä2 = f'''select latitude_deg, longitude_deg from airport
     where ident = "{uusilocation}";'''
-    kursori = yhteys.cursor()
+    kursori = yhteys.cursor(buffered=True)
     kursori.execute(kenttä1)
     k1 = kursori.fetchall()
     kursori.execute(kenttä2)
@@ -218,7 +218,7 @@ if __name__ == '__main__':
             lentokenttä2 = läheiset_lentokentät(icao1, peliyhteys)[minne-1]
             icao2 = icaoksi(lentokenttä2, peliyhteys)
             herkku = herkuntarkistus(icao2, lentokentät)
-            if herkku == "kissa".lower():
+            if herkku == "Kissa":
                 Kissa = True
 
             # Kärsivällisyys hiipuu/nousee
