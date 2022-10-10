@@ -193,7 +193,7 @@ if __name__ == '__main__':
         # Peli tarjoaa käyttäjälle läheisiä lentokenttiä joihin voi lentää
         print(f'Tässä läheisimmät kentät:\n')
 
-        #Tulostus for-loopin sisään ja tulostus selkenä numeroituna listana
+        # Tulostus for-loopin sisään ja tulostus selkenä numeroituna listana
         for indeksi, lentokenttä in enumerate(läheiset_lentokentät(icao1, peliyhteys), start=1):
             print('{0}. {1}'.format(indeksi, lentokenttä))
 
