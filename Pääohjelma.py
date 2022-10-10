@@ -210,27 +210,32 @@ if __name__ == '__main__':
             print('{0}. {1}'.format(indeksi, lentokenttä))
 
         # Käyttäjä valitsee mille lentokentälle lentää
-        minne = int(input('\nValitse mille lentokentälle haluat lentää seuraavaksi indeksiluvulla '
-                          '(negatiivinen lopettaa pelin): '))
+        try:
+            minne = int(input('\nValitse mille lentokentälle haluat lentää '
+                              'seuraavaksi indeksiluvulla ''(negatiivinen lopettaa pelin): '))
+            if minne < 0:
+                kisun_kärsivällisyys = 0
+            elif 0 < minne < 5:
+                lentokenttä2 = läheiset_lentokentät(icao1, peliyhteys)[minne-1]
+                icao2 = icaoksi(lentokenttä2, peliyhteys)
+                herkku = herkuntarkistus(icao2, lentokentät)
+                if herkku == "Kissa":
+                    Kissa = True
 
-        if minne < 0:
-            kisun_kärsivällisyys = 0
-        else:
-            lentokenttä2 = läheiset_lentokentät(icao1, peliyhteys)[minne-1]
-            icao2 = icaoksi(lentokenttä2, peliyhteys)
-            herkku = herkuntarkistus(icao2, lentokentät)
-            if herkku == "Kissa":
-                Kissa = True
+                # Kärsivällisyys hiipuu/nousee
+                kisun_kärsivällisyys = kärsivällisyyshiipuu(icao1, icao2, peliyhteys, kisun_kärsivällisyys)
+                print(f'Kissan kärsivällisyyttä jäljellä: {kisun_kärsivällisyys}\n')
 
-            # Kärsivällisyys hiipuu/nousee
-            kisun_kärsivällisyys = kärsivällisyyshiipuu(icao1, icao2, peliyhteys, kisun_kärsivällisyys)
-            print(f'Kissan kärsivällisyyttä jäljellä: {kisun_kärsivällisyys}\n')
+                # muutetaan uusi sijainti nykyiseksi sijainniksi
+                icao1 = icao2
+                if icao1 == 'EFHK' and Kissa:
+                    voitto = True
+                    break
+            else:
+                print("Valitse arvo annettujen kenttien mukaisesti.")
 
-            # muutetaan uusi sijainti nykyiseksi sijainniksi
-            icao1 = icao2
-            if icao1 == 'EFHK' and Kissa:
-                voitto = True
-                break
+        except ValueError:
+            print("Syötä parempi arvo!")
 
     if kisun_kärsivällisyys <= 0:
         voitto = False
