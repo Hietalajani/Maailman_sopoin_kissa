@@ -1,6 +1,5 @@
 """
 TODO:
-- käydyt kentät pois listasta
 - funktiot muuttamaan tietokantaa
 - oma funktio juttujen (kissa, herkut) lisäämiseksi kentille
 """
@@ -124,7 +123,7 @@ def icaoksi(nimi, yhteys):
 # Herkuntarkistus tarkistaa, onko uudella lentokentällä herkkua tai kissa, palauttaa herkun nimen
 def herkuntarkistus(icao, kentät):
     if icao in kentät:
-        print(f'Löytyi {kentät[icao]}')
+        print(f'\nLöytyi {kentät[icao]}')
         nimi = kentät.pop(icao)
         return nimi
     else:
