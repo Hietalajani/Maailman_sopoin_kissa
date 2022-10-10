@@ -168,7 +168,7 @@ def luo_pelaaja(nimi, yhteys):
     # jotta käyttäjä ei voi syöttää omaa koodiaan. (Bobby Tables)
     sql1 = '''insert into game(co2_consumed, co2_budget, cat_patience_used, 
     cat_patience, screen_name, location) 
-    values(0, 10000, 0, 5000, %s, "EFHK");'''
+    values(0, 10000, 0, 2500, %s, "EFHK");'''
     kursori = yhteys.cursor(buffered=True)
     kursori.execute(sql1, (nimi,))
     sql2 = '''select id from game where screen_name = %s;'''
@@ -201,10 +201,10 @@ if __name__ == '__main__':
     # Tyhjä sanakirja lentokentille
     lentokentät = {}
     # määritellään kisulle kärsivällisyysarvo
-    kisun_kärsivällisyys = 5000
+    kisun_kärsivällisyys = 2500
 
     # kysytään pelaajalle nimi
-    syötetty_nimi = input("Minkä nimen valitset pelihahmollesi? ")
+    syötetty_nimi = input("Kirjoita valitsemasi pelaajanimi ja paina enter:  ")
     pelaajan_nro = luo_pelaaja(f"{syötetty_nimi}", peliyhteys)
 
     # Peli arpoo kenttien arvot
@@ -219,14 +219,20 @@ if __name__ == '__main__':
     voitto = None
     # Ohjeet käyttäjälle
     print('''
-            Yhdellä Euroopan kuumailmapallokentistä piileskelee kissa, tehtäväsi on löytää tämä kissa ja palata takaisin lähtökentälle.
-            Lähtökenttänä toimii Helsinki-Vantaa. 
+            APUA! Rauhan Nobel-palkinnon voittamisen partaalla oleva sukulaisesi
+            on yhtäkkiä syvästi masentunut eikä ole toimintakykyinen. Onneksesi kerran vuosituhannessa ilmaantuva
+            MAAILMAN SÖPÖIN KISSA on juuri havaittu jollain Euroopan kuumailmapallokentistä. Tämän kissan kehräys parantaa
+            minkä tahansa vaivan. Lähtekäämme siis kuumailmapallollamme hakemaan kissaa välittömästi!!''')
+    print()
+    print('''
+            PELIN OHJEET:
+            Lähtökenttänä toimii Helsinki-Vantaa, ja kissan löydettyäsi sinun täytyy palata sinne.
             Ohjelma kertoo sinulle viisi lähintä kuumailmapallokenttää, voit lentää mille tahansa näistä kentistä. 
             Kentiltä voit löytää kissanminttua, tonnikalaa, herkkutikun tai et mitään.
             Kissan kärsivällisyydellä on rajansa ja mikäli kärsivällisyys pääsee loppumaan häviät pelin.
             Mitä pidempi lentomatka, sitä enemmän se kuluttaa kärsivällisyyttä.
             Kärsivällisyys kasvaa jos onnistut löytämään tonnikalaa, kissanminttua tai herkkutikkuja.
-            Jos kissan kärsivällisyys loppuu häviät pelin, jos löydät kissan ja onnistut palaamaan lähtökentälle voitat pelin.
+            Jos löydät kissan ja onnistut palaamaan lähtökentälle voitat pelin.
             ''')
     while kisun_kärsivällisyys > 0:
         input('Jatka painamalla enter\n')
