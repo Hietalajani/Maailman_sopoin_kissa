@@ -201,13 +201,19 @@ if __name__ == '__main__':
     icao1 = 'EFHK'
 
     # Gameplay loop
+    käydyt = []
+    Kissa = False
+    voitto = None
     while kisun_kärsivällisyys > 0:
         # Peli tarjoaa käyttäjälle läheisiä lentokenttiä joihin voi lentää
         print(f'Tässä läheisimmät kentät:\n')
 
         # Tulostus for-loopin sisään ja tulostus selkenä numeroituna listana
         for indeksi, lentokenttä in enumerate(läheiset_lentokentät(icao1, peliyhteys), start=1):
-            print('{0}. {1}'.format(indeksi, lentokenttä))
+            if lentokenttä not in käydyt:
+                print('{0}. {1}'.format(indeksi, lentokenttä))
+            else:
+                print('{0}. {1}'.format(indeksi, lentokenttä), '(käyty)')
 
         # Käyttäjä valitsee mille lentokentälle lentää
         try:
@@ -215,10 +221,11 @@ if __name__ == '__main__':
                               'seuraavaksi indeksiluvulla ''(negatiivinen lopettaa pelin): '))
             if minne < 0:
                 kisun_kärsivällisyys = 0
-            elif 0 < minne < 5:
+            elif 0 < minne < 6:
                 lentokenttä2 = läheiset_lentokentät(icao1, peliyhteys)[minne-1]
                 icao2 = icaoksi(lentokenttä2, peliyhteys)
                 herkku = herkuntarkistus(icao2, lentokentät)
+                käydyt.append(lentokenttä2)
                 if herkku == "Kissa":
                     Kissa = True
 
