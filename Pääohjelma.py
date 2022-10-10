@@ -1,6 +1,8 @@
 """
 TODO:
 - käydyt kentät pois listasta
+- funktiot muuttamaan tietokantaa
+- oma funktio juttujen (kissa, herkut) lisäämiseksi kentille
 """
 
 # Voisko importit tehdä jotenki tehokkaammin?
@@ -16,7 +18,7 @@ def luo_yhteys():
     uusi_yhteys = mysql.connector.connect(
         host='localhost',
         port=3306,
-        database='flight_game',
+        database='kisupeli',
         user='root',
         password=salasana,
         autocommit=True)
@@ -145,6 +147,28 @@ def kärsivällisyyshiipuu(vanhalocation, uusilocation, yhteys, kärsivällisyys
     return kärsivällisyys
 
 
+# Lisää uuden pelaajan tietokantaan.
+# tietokannassa auto_increment, joten id:tä ei tarvita
+def luo_pelaaja(nimi, yhteys):
+    # Lisätään uusi pelaaja annetulla nimi-parametrilla tietokantaan
+    # screen_name=%s ja execute(sql2, nimi),
+    # jotta käyttäjä ei voi syöttää omaa koodiaan. (Bobby Tables)
+    sql1 = '''insert into game(co2_consumed, co2_budget, cat_patience_used, 
+    cat_patience, screen_name, location) 
+    values(0, 10000, 0, 20000, %s, "EFHK");'''
+    kursori = yhteys.cursor()
+    kursori.execute(sql1, (nimi,))
+    sql2 = '''select id from game where screen_name = %s;'''
+    kursori.execute(sql2, (nimi,))
+    uusi_id = kursori.fetchone()
+    if uusi_id:
+        print(uusi_id[0])
+        return uusi_id[0]   # palautetaan id, jolla voi viitata uuteen pelaajaan tietokannassa
+    else:
+        print("False")
+        return False
+
+
 if __name__ == '__main__':
     # luodaan yhteys
     peliyhteys = luo_yhteys()    # huomaa vastata salasanakyselyyn konsolissa
@@ -153,6 +177,10 @@ if __name__ == '__main__':
     lentokentät = {}
     # määritellään kisulle kärsivällisyysarvo
     kisun_kärsivällisyys = 20000
+
+    # kysytään pelaajalle nimi
+    syötetty_nimi = input("Minkä nimen valitset pelihahmollesi? ")
+    pelaajan_nro = luo_pelaaja(f"{syötetty_nimi}", peliyhteys)
 
     # Peli arpoo kenttien arvot
     kenttienarvot(lentokentät, peliyhteys)
