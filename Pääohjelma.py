@@ -127,7 +127,7 @@ def herkuntarkistus(icao, kentät):
         nimi = kentät.pop(icao)
         return nimi
     else:
-        print('Ei löytynyt mitään :(')
+        print('\nEi löytynyt mitään :(')
         return "none"
 
 
