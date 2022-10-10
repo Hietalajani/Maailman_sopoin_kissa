@@ -207,6 +207,8 @@ if __name__ == '__main__':
             lentokenttä2 = läheiset_lentokentät(icao1, peliyhteys)[minne-1]
             icao2 = icaoksi(lentokenttä2, peliyhteys)
             herkku = herkuntarkistus(icao2, lentokentät)
+            if herkku == "kissa".lower():
+                Kissa = True
 
             # Kärsivällisyys hiipuu/nousee
             kisun_kärsivällisyys = kärsivällisyyshiipuu(icao1, icao2, peliyhteys, kisun_kärsivällisyys)
@@ -214,5 +216,14 @@ if __name__ == '__main__':
 
             # muutetaan uusi sijainti nykyiseksi sijainniksi
             icao1 = icao2
+            if icao1 == 'EFHK' and Kissa:
+                voitto = True
+                break
 
-    print("Kissan kärsivällisyys loppui. Hävisit pelin.")
+    if kisun_kärsivällisyys <= 0:
+        voitto = False
+    if voitto:
+        print('Mahtavaa! Voitit pelin!')
+    else:
+        print('Kisun kärsivällisyys loppui. Hävisit pelin.')
+
