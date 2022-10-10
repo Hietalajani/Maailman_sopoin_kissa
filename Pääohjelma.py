@@ -182,6 +182,18 @@ def luo_pelaaja(nimi, yhteys):
         return False
 
 
+def highscores(yhteys):
+    sql = '''select screen_name, cat_patience - cat_patience_used as score
+             from game order by score desc limit 10'''
+    kursori = yhteys.cursor(buffered=True)
+    kursori.execute(sql)
+    tulokset = kursori.fetchall()
+    if tulokset:
+        return tulokset
+    else:
+        return
+
+
 if __name__ == '__main__':
     # luodaan yhteys
     peliyhteys = luo_yhteys()    # huomaa vastata salasanakyselyyn konsolissa
@@ -265,3 +277,9 @@ if __name__ == '__main__':
     else:
         print('Kisun kärsivällisyys loppui. Hävisit pelin.')
 
+    print(f"Sait {kisun_kärsivällisyys} pistettä.")
+    loppuiko = input("Kirjoita h ja paina enter, jos haluat nähdä parhaat tulokset.")
+    if loppuiko == "h":
+        parhaat = highscores(peliyhteys)
+        for rivi in parhaat:
+            print(rivi)
