@@ -16,7 +16,7 @@ class Testit(unittest.TestCase):
     """
 
     def kenttätesti(self):
-        kentät = {}
+        kentät = {}  #
         Pääohjelma.kenttienarvot(kentät, testiyhteys)
         # pitää olla 16 pitkä lista, koska on lisätty
         # kissa, 6 herkkutikkua, 5 tonnikalaa ja 4 kissanminttua
