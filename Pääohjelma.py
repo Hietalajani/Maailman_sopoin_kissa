@@ -14,7 +14,7 @@ from geopy import distance
 # Muodostetaan yhteys tietokantaan
 # Funktio palauttaa luomansa yhteyden
 def luo_yhteys():
-    salasana = input("Anna salasana tietokantaan.")
+    salasana = input("Anna salasana tietokantaan: ")
     uusi_yhteys = mysql.connector.connect(
         host='localhost',
         port=3306,
