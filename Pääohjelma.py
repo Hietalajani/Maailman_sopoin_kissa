@@ -208,6 +208,7 @@ if __name__ == '__main__':
     # Ohjeet käyttäjälle
     print('''
             Yhdellä Euroopan kuumailmapallokentistä piileskelee kissa, tehtäväsi on löytää tämä kissa ja palata takaisin lähtökentälle.
+            Lähtökenttänä toimii Helsinki-Vantaa.
             Ohjelma kertoo sinulle viisi lähintä kuumailmapallokenttää, voit lentää mille tahansa näistä kentistä. 
             Kentiltä voit löytää kissanminttua, tonnikalaa, herkkutikun tai et mitään.
             Kissan kärsivällisyydellä on rajansa ja mikäli kärsivällisyys pääsee loppumaan häviät pelin.
