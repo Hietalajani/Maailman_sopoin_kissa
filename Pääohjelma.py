@@ -205,7 +205,6 @@ if __name__ == '__main__':
     käydyt = []
     Kissa = False
     voitto = None
-    # Oton push test3
     # Ohjeet käyttäjälle
     print('''
             Yhdellä Euroopan kuumailmapallokentistä piileskelee kissa, tehtäväsi on löytää tämä kissa ja palata takaisin lähtökentälle.
