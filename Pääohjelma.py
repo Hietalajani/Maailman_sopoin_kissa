@@ -85,17 +85,25 @@ def läheiset_lentokentät(location, yhteys):
     nykyisetkoordinaatit = f'''select latitude_deg, longitude_deg
     from airport where ident = "{location}";'''
     kaikkikoordinaatit = f'''select latitude_deg, longitude_deg, name
-    from airport where continent = "EU" and type = "balloonport" and not iso_country = "RU";'''
+    from airport where continent = "EU" and type = "balloonport" and not iso_country = "RU" group by iso_country;'''
     kursori = yhteys.cursor()
     kursori.execute(nykyisetkoordinaatit)
     nykyiset = kursori.fetchall()
     kursori.execute(kaikkikoordinaatit)
     kaikki = kursori.fetchall()
-    for koordinaatit in kaikki:
-        if 0 < distance.distance(nykyiset, koordinaatit[0:2]).km <= 500:
-            läheiset.append(koordinaatit[2])
-        else:
-            pass
+    kopio = []
+    kopio.extend(kaikki)
+    min = 1000000
+    n = 1
+    while n <= 5:
+        for koordinaatit in kopio:
+            if distance.distance(nykyiset, koordinaatit[0:2]) < min:
+                min = distance.distance(nykyiset, koordinaatit[0:2])
+        for koordinaatit in kopio:
+            if distance.distance(nykyiset, koordinaatit[0:2]) == min:
+                läheiset.append(koordinaatit[2])
+                kopio.remove(koordinaatit)
+                n += 1
     return läheiset
 
 
