@@ -15,7 +15,7 @@ class Testit(unittest.TestCase):
         self.assertIsInstance(uusi_yhteys, mysql.connector.connection_cext.CMySQLConnection)
     """
 
-    def kenttätesti(self):
+    def kenttätesti(self):  # ei toimi nyt
         kentät = {}
         Pääohjelma.kenttienarvot(kentät, testiyhteys)
         # pitää olla 16 pitkä lista, koska on lisätty
