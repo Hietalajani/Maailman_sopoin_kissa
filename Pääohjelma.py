@@ -249,8 +249,8 @@ if __name__ == '__main__':
 
         # Käyttäjä valitsee mille lentokentälle lentää
         try:
-            minne = int(input('\nValitse mille lentokentälle haluat lentää '
-                              'seuraavaksi indeksiluvulla (negatiivinen lopettaa pelin): '))
+            minne = int(input('\nValitse mille lentokentälle haluat lentää seuraavaksi '
+                              'lentokentän luvulla(1-5) negatiivinen luku lopettaa pelin: '))
             if minne < 0:
                 kisun_kärsivällisyys = 0
             elif 0 < minne < 6:
