@@ -148,15 +148,15 @@ def kärsivällisyyshiipuu(vanhalocation, uusilocation, yhteys, kärsivällisyys
     if herkku != "none":
         if herkku == 'Herkkutikku':
             kärsivällisyys += 500
-            print('Kissan kärsivällisyys kasvoi 500!')
+            print('Kissan kärsivällisyys kasvoi 500')
         elif herkku == 'Tonnikala':
             kärsivällisyys += 750
-            print('Kissan kärsivällisyys kasvoi 750!')
+            print('Kissan kärsivällisyys kasvoi 750')
         elif herkku == 'Kissanminttu':
             kärsivällisyys += 1000
-            print('Kissan kärsivällisyys kasvoi 1000!')
+            print('Kissan kärsivällisyys kasvoi 1000')
     kärsivällisyys -= matka
-    print(f'Matkan keston takia kissan kärsivällisyys laski {matka}!')
+    print(f'Matkan keston takia kissan kärsivällisyys laski {matka}')
     return kärsivällisyys
 
 
@@ -219,20 +219,24 @@ if __name__ == '__main__':
     voitto = None
     # Ohjeet käyttäjälle
     print('''
-            APUA! Rauhan Nobel-palkinnon voittamisen partaalla oleva sukulaisesi
+            APUA! Nobelin rauhanpalkinnon voittamisen partaalla oleva sukulaisesi
             on yhtäkkiä syvästi masentunut eikä ole toimintakykyinen. Onneksesi kerran vuosituhannessa ilmaantuva
             MAAILMAN SÖPÖIN KISSA on juuri havaittu jollain Euroopan kuumailmapallokentistä. Tämän kissan kehräys parantaa
             minkä tahansa vaivan. Lähtekäämme siis kuumailmapallollamme hakemaan kissaa välittömästi!!''')
     print()
     print('''
             PELIN OHJEET:
-            Lähtökenttänä toimii Helsinki-Vantaa, ja kissan löydettyäsi sinun täytyy palata sinne.
-            Ohjelma kertoo sinulle viisi lähintä kuumailmapallokenttää, voit lentää mille tahansa näistä kentistä. 
-            Kentiltä voit löytää kissanminttua, tonnikalaa, herkkutikun tai et mitään.
-            Kissan kärsivällisyydellä on rajansa ja mikäli kärsivällisyys pääsee loppumaan häviät pelin.
-            Mitä pidempi lentomatka, sitä enemmän se kuluttaa kärsivällisyyttä.
-            Kärsivällisyys kasvaa jos onnistut löytämään tonnikalaa, kissanminttua tai herkkutikkuja.
-            Jos löydät kissan ja onnistut palaamaan lähtökentälle voitat pelin.
+            -Tehtäväsi on löytää kissa.
+            -Lähtökenttänä toimii Helsinki-Vantaan kuumailmapallokenttä.
+            -Ohjelma kertoo sinulle aina viisi lähimpänä olevaa kuumailmapallokenttää, voit lentää
+             mille tahansa näistä viidestä kentästä.
+            -Kissan kärsivällisyydellä on rajansa, mitä pidemmän matkan lennät sen enemmän kärsivällisyyttä kuluu.
+            -Jos kissan kärsivällisyys tippuu nollaan häviät pelin.
+            -Kissan kärsivällisyys kasvaa jos löydät herkkutikun, tonnikalaa tai kissanminttua.
+                -Herkkutikku kasvattaa kärsivällisyyttä 500:lla pisteellä.
+                -Tonnikala kasvattaa kärsivällisyyttä 750:llä pisteellä.
+                -Kissanminttu kasvattaa kärsivällisyyttä 1000:lla pisteellä.
+            -Voitat pelin löytämällä kissan ja palaamalla lähtökentälle.
             ''')
     while kisun_kärsivällisyys > 0:
         input('Jatka painamalla enter\n')
@@ -250,7 +254,7 @@ if __name__ == '__main__':
         # Käyttäjä valitsee mille lentokentälle lentää
         try:
             minne = int(input('\nValitse mille lentokentälle haluat lentää seuraavaksi '
-                              'valitsemalla lentokentän luvun(1-5) negatiivinen luku lopettaa pelin: '))
+                              'valitsemalla lentokentän luku(1-5) ja painamalla enter. Negatiivinen luku lopettaa pelin: '))
             if minne < 0:
                 kisun_kärsivällisyys = 0
             elif 0 < minne < 6:
