@@ -261,6 +261,7 @@ if __name__ == '__main__':
                 print("Päätit heittää pyyhkeen kehään ja lentää Goalle etsimään Nirvanaa (ei se bändi).")
                 goan_icao = "VAGO"
                 kisun_kärsivällisyys = 0
+                herkku = "none"
                 kisun_kärsivällisyys = kärsivällisyyshiipuu(icao1, goan_icao, peliyhteys, kisun_kärsivällisyys)
             elif 0 < minne < 6:
                 lentokenttä2 = läheiset_lentokentät(icao1, peliyhteys)[minne-1]
