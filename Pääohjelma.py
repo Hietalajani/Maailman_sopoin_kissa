@@ -171,9 +171,9 @@ def luo_pelaaja(nimi, yhteys):
     cat_patience, screen_name, location) 
     values(0, 10000, 0, 2500, %s, "EFHK");'''
     kursori = yhteys.cursor(buffered=True)
-    kursori.execute(sql1, (nimi,))
+    kursori.execute(sql1, (nimi[:80],))
     sql2 = '''select id from game where screen_name = %s;'''
-    kursori.execute(sql2, (nimi,))
+    kursori.execute(sql2, (nimi[:80],))
     uusi_id = kursori.fetchone()
     if uusi_id:
         print(f'Pelaajanumerosi on: {uusi_id[0]}')
