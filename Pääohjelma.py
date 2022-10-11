@@ -1,6 +1,5 @@
 """
 TODO:
-- funktiot muuttamaan tietokantaa
 - oma funktio juttujen (kissa, herkut) lisäämiseksi kentille
 """
 
@@ -125,6 +124,8 @@ def herkuntarkistus(icao, kentät):
     if icao in kentät:
         print(f'\nLöytyi {kentät[icao]}')
         nimi = kentät.pop(icao)
+        if nimi == "Kissa":
+            print("Loistavaa työtä. Palaa nyt pikaisesti lähtökentälle (Helsinki-Vantaa).")
         return nimi
     else:
         print('\nEi löytynyt mitään :(')
@@ -182,6 +183,7 @@ def luo_pelaaja(nimi, yhteys):
         return False
 
 
+# Hakee tietokannasta kymmenen parasta pistemäärää
 def highscores(yhteys):
     sql = '''select screen_name, cat_patience - cat_patience_used as score
              from game order by score desc limit 10'''
@@ -219,10 +221,10 @@ if __name__ == '__main__':
     voitto = None
     # Ohjeet käyttäjälle
     print('''
-            APUA! Nobelin rauhanpalkinnon voittamisen partaalla oleva sukulaisesi
-            on yhtäkkiä syvästi masentunut eikä kykene saattamaan työtään loppuun. Onneksesi kerran vuosituhannessa ilmaantuva
-            MAAILMAN SÖPÖIN KISSA on juuri havaittu jollakin Euroopan kuumailmapallokentistä. Tämän kissan kehräys parantaa
-            minkä tahansa vaivan. Lähtekäämme siis kuumailmapallollamme hakemaan kissaa välittömästi!!''')
+            APUA! Sukulaisesi on voittamassa kestävän kehityksen Nobel-palkinnon. Hän on kuitenkin pahasti 
+            masentunut, eikä kykene saattamaan työtään loppuun. Onneksesi kerran vuosituhannessa ilmaantuva
+            MAAILMAN SÖPÖIN KISSA on juuri havaittu jollakin Euroopan kuumailmapallokentistä. Tämän kissan kehräys 
+            parantaa minkä tahansa vaivan. Lähtekäämme siis kuumailmapallollamme hakemaan kissaa välittömästi!!''')
     print()
     print('''
             PELIN OHJEET:
@@ -236,10 +238,10 @@ if __name__ == '__main__':
                 -Herkkutikku kasvattaa kärsivällisyyttä 500 pisteellä.
                 -Tonnikala kasvattaa kärsivällisyyttä 750 pisteellä.
                 -Kissanminttu kasvattaa kärsivällisyyttä 1000 pisteellä.
-            -Voitat pelin löytämällä kissan ja palaamalla sen kanssa lähtökentälle.
+            -Voitat pelin löytämällä kissan ja palaamalla sen kanssa takaisin lähtökentälle.
             ''')
     while kisun_kärsivällisyys > 0:
-        input('Jatka painamalla enter\n')
+        input('Jatka painamalla enter.\n')
 
         # Peli tarjoaa käyttäjälle läheisiä lentokenttiä joihin voi lentää
         print('Tässä lähimmät kentät:\n')
@@ -256,10 +258,14 @@ if __name__ == '__main__':
             minne = int(input('\nValitse mille lentokentälle haluat lentää seuraavaksi '
                               'valitsemalla lentokentän luku(1-5) ja painamalla enter. Negatiivinen luku lopettaa pelin: '))
             if minne < 0:
-                kisun_kärsivällisyys = 0
+                print("Päätit heittää pyyhkeen kehään ja lentää Goalle etsimään Nirvanaa (ei se bändi).")
+                goan_icao = "VAGO"
+                kisun_kärsivällisyys = kärsivällisyyshiipuu(icao1, goan_icao, peliyhteys, kisun_kärsivällisyys)
+                # kisun_kärsivällisyys = 0
             elif 0 < minne < 6:
                 lentokenttä2 = läheiset_lentokentät(icao1, peliyhteys)[minne-1]
                 icao2 = icaoksi(lentokenttä2, peliyhteys)
+                print(f"\nUusi sijaintisi on: {lentokenttä2}.")
                 herkku = herkuntarkistus(icao2, lentokentät)
                 käydyt.append(lentokenttä2)
                 if herkku == "Kissa":
@@ -288,8 +294,15 @@ if __name__ == '__main__':
         print('Kisun kärsivällisyys loppui. Hävisit pelin.')
 
     print(f"Sait {kisun_kärsivällisyys} pistettä.")
+
+    # päivitetään pistemäärä tietokantaan
+    pistesql = f'''update game set cat_patience_used = cat_patience - {kisun_kärsivällisyys} 
+            where id = {pelaajan_nro};'''
+    pelikursori = peliyhteys.cursor()
+    pelikursori.execute(pistesql)
+
     loppuiko = input("Kirjoita h ja paina enter, jos haluat nähdä parhaat tulokset.")
     if loppuiko == "h":
         parhaat = highscores(peliyhteys)
         for rivi in parhaat:
-            print(rivi)
+            print(rivi[0], rivi[1])
