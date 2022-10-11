@@ -220,23 +220,23 @@ if __name__ == '__main__':
     # Ohjeet käyttäjälle
     print('''
             APUA! Nobelin rauhanpalkinnon voittamisen partaalla oleva sukulaisesi
-            on yhtäkkiä syvästi masentunut eikä ole toimintakykyinen. Onneksesi kerran vuosituhannessa ilmaantuva
-            MAAILMAN SÖPÖIN KISSA on juuri havaittu jollain Euroopan kuumailmapallokentistä. Tämän kissan kehräys parantaa
+            on yhtäkkiä syvästi masentunut eikä kykene saattamaan työtään loppuun. Onneksesi kerran vuosituhannessa ilmaantuva
+            MAAILMAN SÖPÖIN KISSA on juuri havaittu jollakin Euroopan kuumailmapallokentistä. Tämän kissan kehräys parantaa
             minkä tahansa vaivan. Lähtekäämme siis kuumailmapallollamme hakemaan kissaa välittömästi!!''')
     print()
     print('''
             PELIN OHJEET:
-            -Tehtäväsi on löytää kissa.
-            -Lähtökenttänä toimii Helsinki-Vantaan kuumailmapallokenttä.
+            -Tehtäväsi on löytää kissa joltakin kuumailmapallokentältä.
+            -Lähtökenttänä toimii Helsinki-Vantaan kenttä.
             -Ohjelma kertoo sinulle aina viisi lähimpänä olevaa kuumailmapallokenttää, voit lentää
              mille tahansa näistä viidestä kentästä.
-            -Kissan kärsivällisyydellä on rajansa, mitä pidemmän matkan lennät sen enemmän kärsivällisyyttä kuluu.
-            -Jos kissan kärsivällisyys tippuu nollaan häviät pelin.
+            -Kissan kärsivällisyydellä on rajansa: mitä pidemmän matkan lennät, sitä enemmän kärsivällisyyttä kuluu.
+            -Jos kissan kärsivällisyys tippuu nollaan, peli on menetetty.
             -Kissan kärsivällisyys kasvaa jos löydät herkkutikun, tonnikalaa tai kissanminttua.
-                -Herkkutikku kasvattaa kärsivällisyyttä 500:lla pisteellä.
-                -Tonnikala kasvattaa kärsivällisyyttä 750:llä pisteellä.
-                -Kissanminttu kasvattaa kärsivällisyyttä 1000:lla pisteellä.
-            -Voitat pelin löytämällä kissan ja palaamalla lähtökentälle.
+                -Herkkutikku kasvattaa kärsivällisyyttä 500 pisteellä.
+                -Tonnikala kasvattaa kärsivällisyyttä 750 pisteellä.
+                -Kissanminttu kasvattaa kärsivällisyyttä 1000 pisteellä.
+            -Voitat pelin löytämällä kissan ja palaamalla sen kanssa lähtökentälle.
             ''')
     while kisun_kärsivällisyys > 0:
         input('Jatka painamalla enter\n')
