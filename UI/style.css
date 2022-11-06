@@ -12,33 +12,41 @@ body {
 nav > ul {
     display: flex;
     align-items: center;
-    list-style-type: none;
     height: 10vh;
+
+    list-style-type: none;
 }
 
 nav > ul li {
     flex: 1;
 }
 
-nav > ul li a {
+.napit {
+    display: flex;
+    width: 30%;
+}
+
+.napit a {
     text-decoration: none;
     color: darkgreen;
 }
 
 h1 {
-    padding-right: 20rem
+    margin-right: 20rem;
 }
 
 main {
 
     border: solid 1px black;
     display: flex;
-    height: 90vh;
+    height: 80vh;
 }
 
 .inventory {
     flex: 1;
+
     background-color: gray;
+    border: solid 1px black;
 }
 
 .inventory h2 {
@@ -46,13 +54,21 @@ main {
     padding: 1rem;
 }
 
+.inventory ul li {
+    line-height: 3rem;
+}
+
 .pääikkuna {
     flex: 6;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     background-color: lightseagreen;
+    border: solid 1px black;
 }
+
 
 #pelaajanimi {
     position: absolute;
@@ -62,17 +78,27 @@ main {
 
 .pääikkuna > .map {
     background-color: #ffe5ea;
+
     width: 50%;
     height: 50%;
+
     text-align: center;
     line-height: 20rem;
 }
 
 .infopalkki {
     flex: 1;
+
     background-color: lavenderblush;
+    border: solid 1px black;
 }
 
 .infopalkki h2, .infopalkki p {
     margin-left: 1rem;
+}
+
+footer {
+    height: 10vh;
+
+    background-color: floralwhite;
 }

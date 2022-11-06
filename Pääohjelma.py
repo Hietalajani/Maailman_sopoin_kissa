@@ -305,5 +305,6 @@ if __name__ == '__main__':
     loppuiko = input("Kirjoita h ja paina enter, jos haluat nähdä parhaat tulokset.")
     if loppuiko == "h":
         parhaat = highscores(peliyhteys)
+        print()
         for rivi in parhaat:
             print(rivi[0], rivi[1])
