@@ -7,3 +7,4 @@ class Peli:
         self.tila = tila
         self.aiempisijainti = aiempisijainti
     def metodi(self):
+        pass
