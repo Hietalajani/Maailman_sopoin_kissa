@@ -1,5 +1,5 @@
 import unittest
-import Pääohjelma
+from old import Pääohjelma
 
 
 class Testit(unittest.TestCase):
