@@ -1,0 +1,19 @@
+APUA! Sukulaisesi on voittamassa kestävän kehityksen Nobel-palkinnon. Hän on kuitenkin pahasti 
+masentunut, eikä kykene saattamaan työtään loppuun. Onneksesi kerran vuosituhannessa ilmaantuva
+MAAILMAN SÖPÖIN KISSA on juuri havaittu jollakin Euroopan kuumailmapallokentistä. Tämän kissan kehräys
+parantaa minkä tahansa vaivan. Lähtekäämme siis kuumailmapallollamme hakemaan kissaa välittömästi!!
+
+
+
+PELIN OHJEET:
+            -Tehtäväsi on löytää kissa joltakin kuumailmapallokentältä.
+            -Lähtökenttänä toimii Helsinki-Vantaan kenttä.
+            -Ohjelma kertoo sinulle aina viisi lähimpänä olevaa kuumailmapallokenttää, voit lentää
+             mille tahansa näistä viidestä kentästä.
+            -Kissan kärsivällisyydellä on rajansa: mitä pidemmän matkan lennät, sitä enemmän kärsivällisyyttä kuluu.
+            -Jos kissan kärsivällisyys tippuu nollaan, peli on menetetty.
+            -Kissan kärsivällisyys kasvaa jos löydät herkkutikun, tonnikalaa tai kissanminttua.
+                -Herkkutikku kasvattaa kärsivällisyyttä 500 pisteellä.
+                -Tonnikala kasvattaa kärsivällisyyttä 750 pisteellä.
+                -Kissanminttu kasvattaa kärsivällisyyttä 1000 pisteellä.
+            -Voitat pelin löytämällä kissan ja palaamalla sen kanssa takaisin lähtökentälle.
