@@ -1,3 +1,16 @@
+:root {
+    --color1: #D9ED92;
+    --color2: #B5E48C;
+    --color3: #99D98C;
+    --color4: #76C893;
+    --color5: #52B69A;
+    --color6: #34A0A4;
+    --color7: #168AAD;
+    --color8: #1A759F;
+    --color9: #1E6091;
+    --color10: #184E77;
+}
+
 html {
     font-family: Verdana, sans-serif;
 }
@@ -28,7 +41,7 @@ nav > ul li {
 
 .napit a {
     text-decoration: none;
-    color: darkgreen;
+    color: var(--color10);
 }
 
 h1 {
@@ -45,7 +58,7 @@ main {
 .inventory {
     flex: 1;
 
-    background-color: gray;
+    background-color: var(--color7);
     border: solid 1px black;
 }
 
@@ -65,7 +78,7 @@ main {
     justify-content: center;
     align-items: center;
 
-    background-color: lightseagreen;
+    background-color: var(--color5);
     border: solid 1px black;
 }
 
@@ -89,7 +102,7 @@ main {
 .infopalkki {
     flex: 1;
 
-    background-color: lavenderblush;
+    background-color: var(--color7);
     border: solid 1px black;
 }
 
