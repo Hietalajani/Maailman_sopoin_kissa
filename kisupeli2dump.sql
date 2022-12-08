@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `lentokentta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lentokentta` (
-  `icao` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icao` varchar(10) NOT NULL,
   `nimi` varchar(70) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `leveyspiiri` double DEFAULT NULL,
   `pituuspiiri` double DEFAULT NULL,
@@ -54,11 +54,11 @@ CREATE TABLE `peli` (
   `pelaaja_nimi` varchar(16) NOT NULL DEFAULT '',
   `kissa_karsivallisyys` int(11) NOT NULL DEFAULT 0,
   `kaytetty_karsivallisyys` int(11) NOT NULL DEFAULT 0,
-  `sijainti` varchar(40) DEFAULT NULL,
+  `sijainti` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `sijainti` (`sijainti`),
   CONSTRAINT `peli_ibfk_1` FOREIGN KEY (`sijainti`) REFERENCES `lentokentta` (`icao`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
