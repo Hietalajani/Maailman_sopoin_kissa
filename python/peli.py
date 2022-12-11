@@ -17,7 +17,11 @@ class Peli:
             self.status = {
                 "peliid": ''.join(random.choice(usable) for i in range(20)),
                 "pelaajanimi": pelaajanimi,
-                "karsivallisyyskulunut": karsivallisyyskulunut
+                "karsivallisyys": {
+                    "karsivallisyyskulunut": karsivallisyyskulunut,
+                    "karsivallisyysmax": karsivallisyysmax
+                }
+
             }
 
     def metodi(self):

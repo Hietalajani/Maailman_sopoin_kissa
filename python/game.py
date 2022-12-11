@@ -1,5 +1,4 @@
 from esine import Esine
-from tavoite import Tavoite
 from peli import Peli
 from kentta import Kentta
 import mysql.connector

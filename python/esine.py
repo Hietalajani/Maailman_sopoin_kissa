@@ -22,3 +22,7 @@ class Tonnikala(Esine):
     def __init__(self):
         super().__init__("Tonnikala")
         self.pisteet = 750
+
+class Kissa(Esine):
+    def __init__(self, loydetty):
+        self.loydetty = loydetty
