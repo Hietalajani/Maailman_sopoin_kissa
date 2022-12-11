@@ -17,3 +17,5 @@ PELIN OHJEET:
                 -Tonnikala kasvattaa kärsivällisyyttä 750 pisteellä.
                 -Kissanminttu kasvattaa kärsivällisyyttä 1000 pisteellä.
             -Voitat pelin löytämällä kissan ja palaamalla sen kanssa takaisin lähtökentälle.
+
+Klikkaa mistä tahansa sulkeaksesi tämän

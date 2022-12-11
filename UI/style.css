@@ -28,6 +28,12 @@ dialog {
     width: 50%;
 }
 
+dialog div {
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+}
+
 nav > ul {
     display: flex;
     align-items: center;
