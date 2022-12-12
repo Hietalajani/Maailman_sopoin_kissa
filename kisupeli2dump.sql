@@ -91,6 +91,7 @@ CREATE TABLE `peli` (
   `kissa_karsivallisyys` int(11) NOT NULL DEFAULT 0,
   `kaytetty_karsivallisyys` int(11) NOT NULL DEFAULT 0,
   `sijainti` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `peli_ohi` BOOLEAN DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `sijainti` (`sijainti`),
   CONSTRAINT `peli_ibfk_1` FOREIGN KEY (`sijainti`) REFERENCES `lentokentta` (`icao`)
