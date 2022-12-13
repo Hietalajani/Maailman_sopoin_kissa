@@ -1,4 +1,6 @@
 import config
+import json
+import requests
 
 
 class Pelaaja:
@@ -37,7 +39,7 @@ class Pelaaja:
             "Käytetty kärsivällisyys": self.käytetty_kärsivällisyys,
             "Sijainti": self.sijainti
         }
-        return skirja
+        return json.dumps(skirja, indent=4)
 
     def hae_tiedot(self, tunnus):
         sql = f"SELECT * from peli where id = {tunnus};"
@@ -68,4 +70,40 @@ def pistetaulukko():
                 "score": tulos[2]
             }
             laskuri += 1
-    return ret_json
+    return json.dumps(ret_json, indent=4)
+
+
+# hakee säätiedot OpenWeatherMapin APIsta
+# https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid={API key}
+def hae_ilma(icao):
+    kursori = config.yhteys.cursor()
+    kursori.execute("SELECT leveyspiiri, pituuspiiri FROM lentokentta WHERE icao=%s;", (icao,))
+    koord = kursori.fetchone()
+    # print(koord) # testiprintti
+
+    if koord:
+        pyyntö = f"https://api.openweathermap.org/data/2.5/weather?lat={koord[0]}&lon={koord[1]}&appid={config.apikey}&lang=fi"
+        try:
+            vastaus = requests.get(pyyntö)
+            if vastaus.status_code == 200:
+                json_vastaus = vastaus.json()
+                # lämpötila Celsius-asteiksi
+                json_vastaus["main"]["temp"] -= 273.15
+
+                """
+                # kuvaus suomeksi
+                desc = json_vastaus["weather"][0]["description"]
+                celsius = json_vastaus["main"]["temp"]
+    
+                # tulostetaan halutun kaupungin säätila ja lämpötila celsius-asteissa
+                print(f"\nPaikan {icao} säätila on {desc}\n"
+                      f"\tLämpötila on {celsius:.1f} celsiusastetta.")
+                """
+
+                return json_vastaus
+    
+        # Haku tuotti virheen
+        except requests.exceptions.RequestException as e:
+            print("Säähakua ei voitu suorittaa.")
+    else:
+        raise Exception("Virheellinen ICAO-koodi.")
