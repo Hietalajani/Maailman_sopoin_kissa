@@ -1,64 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Kartta</title>
-  <meta charset="UTF-8">
-  <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.6.0/maps/maps.css'/>
-  <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.6.0/maps/maps-web.min.js'></script>
-  <style>
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
+    <title>Kartta</title>
+    <meta charset="UTF-8">
+        <link rel='stylesheet' type='text/css'
+              href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.4.0/maps/maps.css'>
+        <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.4.0/maps/maps-web.min.js"></script>
+        <script>(function() {
+          window.SS = window.SS || {};
+          SS.Require = function(callback) {
+            if (typeof callback === 'function') {
+              if (window.SS && SS.EventTrack) {
+                callback();
+              } else {
+                var siteSpect = document.getElementById('siteSpectLibraries');
+                var head = document.getElementsByTagName('head')[0];
+                if (siteSpect === null && typeof head !== 'undefined') {
+                  siteSpect = document.createElement('script');
+                  siteSpect.type = 'text/javascript';
+                  siteSpect.src = '/__ssobj/core.js+ssdomvar.js+generic-adapter.js';
+                  siteSpect.async = true;
+                  siteSpect.id = 'siteSpectLibraries';
+                  head.appendChild(siteSpect);
+                }
+                if (window.addEventListener) {
+                  siteSpect.addEventListener('load', callback, false);
+                } else {
+                  siteSpect.attachEvent('onload', callback, false);
+                }
+              }
+            }
+          };
+        })(); </script>
+    </head>
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
 
-    #map {
-      width: 100vw;
-      height: 100vh;
-    }
+        #map {
+            width: 100vw;
+            height: 100vh;
+        }
 
-    #marker {
-      background-image: url(156px-Map_marker.png);
-      background-size: cover;
-      width: 40px;
-      height: 60px;
-    }
-  </style>
+        #marker {
+            background-image: url(156px-Map_marker.png);
+            background-size: cover;
+            width: 40px;
+            height: 60px;
+        }
+    </style>
 
-  <body>
-    <div id='map'></div>
-    <script>
-      var koordinaatit = [{"icao":"EFHK","koord1": 24.9497, "koord2": 60.3183,"maa":"Suomi"}];
-      var map = tt.map({
-        container: 'map',
-        key: 'Z6Vwy9RgKQfpTKtOV1Bkl5YA3uwusW79',
-        center: [koordinaatit[0].koord1, koordinaatit[0].koord2], //ei loopata, on vaan ensimmäinen sijainti
-        zoom: 5
-      });
+<body>
+<div id='map'></div>
+<script>
+  var koordinaatit = [{'icao': 'EFHK', 'koord1': 24.9497, 'koord2': 60.3183, 'maa': 'Suomi'}, {'icao': 'ESSA', 'koord1': 17.9186, 'koord2': 59.6519, 'maa': 'Ruotsi'}];
+  var map = tt.map({
+    container: 'map',
+    key: 'Z6Vwy9RgKQfpTKtOV1Bkl5YA3uwusW79',
+    center: [koordinaatit[0].koord1, koordinaatit[0].koord2], //ei loopata, on vaan ensimmäinen sijainti
+    zoom: 5,
+  });
 
-      const element = document.createElement('div');
-      element.id = 'marker';
-	for(let i = 0; i < koordinaatit.length; i++){
-      const marker = new tt.Marker({element: element}).setLngLat([koordinaatit[i].koord1, koordinaatit[i].koord2]).addTo(map);
-	  
-      // var popupOffsets = {
-      //   top: [0, 0],
-      //   bottom: [0, -70],
-      //   'bottom-right': [0, -70],
-      //   'bottom-left': [0, -70],
-      //   left: [25, -35],
-      //   right: [-25, -35]
-      // }
+  const markerdiv = document.querySelector('#map').appendChild(document.createElement('div'));
+  markerdiv.id = 'marker';
+  for (let i = 0; i < koordinaatit.length; i++) {
+    const marker = new tt.Marker().setLngLat([koordinaatit[i].koord1, koordinaatit[i].koord2]).
+        addTo(map);
 
-      // var customPopup = '<p style="display:inline">' +
-      // '<img src="#" alt="#" style="width:50%;float:right;padding-top:10px">' +
-      // '<div style="width:50%; height:100%; padding-top:10px"><span style="font:14px Gotham">'+koordinaatit[i].icao+'</span></br>' +
-      // '<span style="font:10px Gotham">'+koordinaatit[i].icao+" "+koordinaatit[i].maa+'</div></p>';
-      //
-      // var popup = new tt.Popup({offset: popupOffsets}).setHTML(customPopup);
-      // marker.setPopup(popup).togglePopup();
-	  }
-    </script>
-  </body>
+    // var popupOffsets = {
+    //   top: [0, 0],
+    //   bottom: [0, -70],
+    //   'bottom-right': [0, -70],
+    //   'bottom-left': [0, -70],
+    //   left: [25, -35],
+    //   right: [-25, -35]
+    // }
+
+    // var customPopup = '<p style="display:inline">' +
+    // '<img src="#" alt="#" style="width:50%;float:right;padding-top:10px">' +
+    // '<div style="width:50%; height:100%; padding-top:10px"><span style="font:14px Gotham">'+koordinaatit[i].icao+'</span></br>' +
+    // '<span style="font:10px Gotham">'+koordinaatit[i].icao+" "+koordinaatit[i].maa+'</div></p>';
+    //
+    // var popup = new tt.Popup({offset: popupOffsets}).setHTML(customPopup);
+    // marker.setPopup(popup).togglePopup();
+  }
+</script>
+</body>
 </html>
