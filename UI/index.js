@@ -239,7 +239,7 @@ for (let kentta of koordinaatit.values()) {
   markerdiv.id = 'marker';
   const marker = new tt.Marker({element: markerdiv}).setLngLat(koordlista).
       addTo(map);
-  const popup = new tt.Popup().setHTML(
+  const popup = new tt.Popup({closeButton:false}).setHTML(
       `${kentta.maa}<br>Lämpötila<br>Sään kuvaus`);
-  marker.setPopup(popup).togglePopup();
+  marker.setPopup(popup);
 }
