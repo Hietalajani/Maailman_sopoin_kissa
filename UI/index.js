@@ -88,15 +88,15 @@ aloitusnappi.addEventListener('click', async () => {
 });
 
 // tähän kristiinan tekemät napit matkaanlähtöön
-document.querySelector('.lentonapit').
-    forEach().
-    addEventListener('click', async (e) => {
-      const inv = document.querySelector('.invlista');
-
-      const lento = await fetch(
-          `http://127.0.0.1:3000/matkusta?id=${+(pelaajaid.innerText)}&kohde=${this.id}`);
-      const tiedot = await lento.json();
-    });
+// document.querySelector('.lentonapit').
+//     forEach().
+//     addEventListener('click', async (e) => {
+//       const inv = document.querySelector('.invlista');
+//
+//       const lento = await fetch(
+//           `http://127.0.0.1:3000/matkusta?id=${+(pelaajaid.innerText)}&kohde=${this.id}`);
+//       const tiedot = await lento.json();
+//     });
 
 // kartan lisäys
 
