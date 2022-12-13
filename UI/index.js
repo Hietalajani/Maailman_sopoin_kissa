@@ -65,29 +65,28 @@ const startLoc = 'EFHK';
 
 function kenttienarpominen() {
   for (let i = 0; i < koordinaatit.length; i++) {
-    const tamaicao = koordinaatit[i].icao
+    const tamaicao = koordinaatit[i].icao;
 
-    icaot[tamaicao] = i
-    icaot['arvo'] = ''
+    icaot[tamaicao] = i;
+    icaot['arvo'] = '';
   }
-
 
   // kissa kentälle
 
-  const kissaluku = Math.floor((Math.random() * 36) + 1)
-  icaot[kissaluku].arvo = 'Kissa'
+  const kissaluku = Math.floor((Math.random() * 36) + 1);
+  icaot[kissaluku].arvo = 'Kissa';
 
   // 6 herkkutikkua
 
   for (let i = 1; i <= 6; i++) {
     let successful = false;
     while (!successful) {
-      let kentanarvo = (Math.floor(Math.random() * 36) + 1)
+      let kentanarvo = (Math.floor(Math.random() * 36) + 1);
 
       if (kentanarvo === kissaluku) {
 
       } else if (icaot[kentanarvo].arvo === '') {
-        icaot[kentanarvo].arvo = 'Herkkutikku'
+        icaot[kentanarvo].arvo = 'Herkkutikku';
         successful = true;
 
       }
@@ -100,12 +99,12 @@ function kenttienarpominen() {
   for (let i = 1; i <= 5; i++) {
     let successful = false;
     while (!successful) {
-      let kentanarvo = (Math.floor(Math.random() * 36) + 1)
+      let kentanarvo = (Math.floor(Math.random() * 36) + 1);
 
       if (kentanarvo === kissaluku) {
 
       } else if (icaot[kentanarvo].arvo === '') {
-        icaot[kentanarvo].arvo = 'Tonnikala'
+        icaot[kentanarvo].arvo = 'Tonnikala';
         successful = true;
       }
     }
@@ -116,18 +115,18 @@ function kenttienarpominen() {
   for (let i = 1; i <= 4; i++) {
     let successful = false;
     while (!successful) {
-      let kentanarvo = (Math.floor(Math.random() * 36) + 1)
+      let kentanarvo = (Math.floor(Math.random() * 36) + 1);
 
       if (kentanarvo === kissaluku) {
 
       } else if (icaot[kentanarvo].arvo === '') {
-        icaot[kentanarvo].arvo = 'Kissanminttu'
+        icaot[kentanarvo].arvo = 'Kissanminttu';
         successful = true;
       }
     }
   }
 
-  return icaot
+  return icaot;
 }
 
 ohjeet.addEventListener('click', (e) => {
@@ -181,8 +180,7 @@ function hidename() {
 
 const aloitusnappi = document.querySelector('#aloitapeli');
 aloitusnappi.addEventListener('click', async () => {
-  const kenttienarvot = kenttienarpominen()
-
+  const kenttienarvot = kenttienarpominen();
 
   document.querySelector('#aloitapeli').style.display = 'None';
   const infopalkki = document.querySelector('.infopalkki');
@@ -228,18 +226,20 @@ aloitusnappi.addEventListener('click', async () => {
 // iframe.src = 'kartta.html';
 // document.querySelector('.map').appendChild(iframe);
 
-var map = tt.map({
-    container: 'map',
-    key: 'Z6Vwy9RgKQfpTKtOV1Bkl5YA3uwusW79',
-    center: [koordinaatit[0].koord1, koordinaatit[0].koord2], //ei loopata, on vaan ensimmäinen sijainti
-    zoom: 5,
-  });
+const map = tt.map({
+  container: 'map',
+  key: 'Z6Vwy9RgKQfpTKtOV1Bkl5YA3uwusW79',
+  center: [koordinaatit[0].koord1, koordinaatit[0].koord2], //ei loopata, on vaan ensimmäinen sijainti
+  zoom: 5,
+});
 
-const markerdiv = document.querySelector('#map').appendChild(document.createElement('div'));
-  markerdiv.class = 'marker';
-  for (let i = 0; i < koordinaatit.length; i++) {
-    const marker = new tt.Marker().setLngLat(
-        [koordinaatit[i].koord1, koordinaatit[i].koord2]).
-        addTo(map);
-
-  }
+for (let kentta of koordinaatit.values()) {
+  const koordlista = [kentta.koord1, kentta.koord2];
+  const markerdiv = document.createElement('div');
+  markerdiv.id = 'marker';
+  const marker = new tt.Marker({element: markerdiv}).setLngLat(koordlista).
+      addTo(map);
+  const popup = new tt.Popup().setHTML(
+      `${kentta.maa}<br>Lämpötila<br>Sään kuvaus`);
+  marker.setPopup(popup).togglePopup();
+}
