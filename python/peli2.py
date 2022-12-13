@@ -39,7 +39,8 @@ class Pelaaja:
             "Käytetty kärsivällisyys": self.käytetty_kärsivällisyys,
             "Sijainti": self.sijainti
         }
-        return json.dumps(skirja, indent=4)
+        # return json.dumps(skirja, indent=4)
+        return skirja
 
     def hae_tiedot(self, tunnus):
         sql = f"SELECT * from peli where id = {tunnus};"
@@ -70,7 +71,8 @@ def pistetaulukko():
                 "score": tulos[2]
             }
             laskuri += 1
-    return json.dumps(ret_json, indent=4)
+    # return json.dumps(ret_json, indent=4)
+    return ret_json
 
 
 # hakee säätiedot OpenWeatherMapin APIsta
