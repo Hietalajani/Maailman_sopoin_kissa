@@ -1,5 +1,5 @@
 # """
-# 
+#
 # - oma funktio juttujen (kissa, herkut) lisäämiseksi kentille
 # """
 #
