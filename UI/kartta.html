@@ -19,7 +19,7 @@
     }
 
     #marker {
-      background-image: url('#');
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/156px-Map_marker.svg.png');
       background-size: cover;
       width: 50px;
       height: 70px;
@@ -34,30 +34,30 @@
         container: 'map',
         key: 'Z6Vwy9RgKQfpTKtOV1Bkl5YA3uwusW79',
         center: [koordinaatit[0].koord1, koordinaatit[0].koord2], //ei loopata, on vaan ensimmäinen sijainti
-        zoom: 15
+        zoom: 5
       });
 
-      var element = document.createElement('div');
+      const element = document.createElement('div');
       element.id = 'marker';
 	for(let i = 0; i < koordinaatit.length; i++){
-      var marker = new tt.Marker({element: element}).setLngLat([koordinaatit[i].koord1, koordinaatit[i].koord2]).addTo(map);
+      const marker = new tt.Marker({element: element}).setLngLat([koordinaatit[i].koord1, koordinaatit[i].koord2]).addTo(map);
 	  
-      var popupOffsets = {
-        top: [0, 0],
-        bottom: [0, -70],
-        'bottom-right': [0, -70],
-        'bottom-left': [0, -70],
-        left: [25, -35],
-        right: [-25, -35]
-      }
+      // var popupOffsets = {
+      //   top: [0, 0],
+      //   bottom: [0, -70],
+      //   'bottom-right': [0, -70],
+      //   'bottom-left': [0, -70],
+      //   left: [25, -35],
+      //   right: [-25, -35]
+      // }
 
-      var customPopup = '<p style="display:inline">' +
-      '<img src="#" alt="#" style="width:50%;float:right;padding-top:10px">' +
-      '<div style="width:50%; height:100%; padding-top:10px"><span style="font:14px Gotham">'+koordinaatit[i].icao+'</span></br>' +
-      '<span style="font:10px Gotham">'+koordinaatit[i].icao+" "+koordinaatit[i].maa+'</div></p>';
-
-      var popup = new tt.Popup({offset: popupOffsets}).setHTML(customPopup);
-      marker.setPopup(popup).togglePopup();
+      // var customPopup = '<p style="display:inline">' +
+      // '<img src="#" alt="#" style="width:50%;float:right;padding-top:10px">' +
+      // '<div style="width:50%; height:100%; padding-top:10px"><span style="font:14px Gotham">'+koordinaatit[i].icao+'</span></br>' +
+      // '<span style="font:10px Gotham">'+koordinaatit[i].icao+" "+koordinaatit[i].maa+'</div></p>';
+      //
+      // var popup = new tt.Popup({offset: popupOffsets}).setHTML(customPopup);
+      // marker.setPopup(popup).togglePopup();
 	  }
     </script>
   </body>
