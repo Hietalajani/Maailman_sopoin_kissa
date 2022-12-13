@@ -53,3 +53,7 @@ pisteet.addEventListener('click', async function (e) {
 async function pelinaloitus(url) {
 
 }
+
+const iframe = document.createElement("iframe");
+iframe.src = "kartta.html";
+document.querySelector(".map").appendChild(iframe);

@@ -104,11 +104,16 @@ main {
 .pääikkuna > .map {
     background-color: #ffe5ea;
 
-    width: 50%;
-    height: 50%;
+    width: 100%;
+    height: 100%;
 
     text-align: center;
     line-height: 20rem;
+}
+
+iframe{
+    width: 100%;
+    height: 100%;
 }
 
 .infopalkki {
