@@ -224,7 +224,22 @@ aloitusnappi.addEventListener('click', async () => {
 
 // kartan lisäys
 
-const iframe = document.createElement('iframe');
-iframe.src = 'kartta.html';
-document.querySelector('.map').appendChild(iframe);
+// const iframe = document.createElement('iframe');
+// iframe.src = 'kartta.html';
+// document.querySelector('.map').appendChild(iframe);
 
+var map = tt.map({
+    container: 'map',
+    key: 'Z6Vwy9RgKQfpTKtOV1Bkl5YA3uwusW79',
+    center: [koordinaatit[0].koord1, koordinaatit[0].koord2], //ei loopata, on vaan ensimmäinen sijainti
+    zoom: 5,
+  });
+
+const markerdiv = document.querySelector('#map').appendChild(document.createElement('div'));
+  markerdiv.class = 'marker';
+  for (let i = 0; i < koordinaatit.length; i++) {
+    const marker = new tt.Marker().setLngLat(
+        [koordinaatit[i].koord1, koordinaatit[i].koord2]).
+        addTo(map);
+
+  }

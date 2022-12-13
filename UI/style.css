@@ -101,20 +101,20 @@ main {
     left: 15%;
 }
 
-.pääikkuna > .map {
+.pääikkuna > #map {
     background-color: #ffe5ea;
 
     width: 100%;
     height: 100%;
 
-    text-align: center;
-    line-height: 20rem;
+    /*text-align: center;*/
+    /*line-height: 20rem;*/
 }
 
-iframe{
-    width: 100%;
-    height: 100%;
-}
+/*iframe{*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*}*/
 
 .infopalkki {
     flex: 1;
