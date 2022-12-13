@@ -132,3 +132,21 @@ footer {
 
     background-color: floralwhite;
 }
+
+form p {
+    display: inline;
+}
+
+#aloitapeli {
+    position: absolute;
+    width: 35%;
+    height: 25%;
+
+    font-size: 5rem;
+
+    background-color: #ff9033;
+}
+
+#aloitapeli:hover {
+    background-color: orange;
+}

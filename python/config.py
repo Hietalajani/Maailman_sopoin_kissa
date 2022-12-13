@@ -1,6 +1,6 @@
 # tietokanta
 yhteys = None
-pw = "ogmama"
+pw = "0232"
 
 # pelin arvot
 kissan_kärsivällisyys = 2500

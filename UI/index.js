@@ -47,12 +47,35 @@ pisteet.addEventListener('click', async function (e) {
     }
 });
 
+function hidename() {
+    document.querySelector('#nimikentta').style.display = "None";
+    document.querySelector('form').appendChild(document.createElement('p')).innerText = document.querySelector('#nimikentta').value
+}
+
 
 // pelinluonti
 
-async function pelinaloitus(url) {
+const aloitusnappi = document.querySelector('#aloitapeli')
+aloitusnappi.addEventListener('click', async () => {
+    document.querySelector('#aloitapeli').style.display = "None"
+    const infopalkki = document.querySelector('.infopalkki')
 
-}
+
+    const pelaajanimi = document.querySelector('#nimikentta').value
+
+    const pelinhaku = await fetch(`http://127.0.0.1:3000/uusi_peli?nimi=${pelaajanimi}`)
+    const status = await pelinhaku.json();
+
+    console.log(status)
+
+    infopalkki.appendChild(document.createElement('p')).innerText = `Pelaaja-id: ${status.ID}`
+    infopalkki.appendChild(document.createElement('p')).innerText = `Sijainti: ${status.Sijainti}`
+    infopalkki.appendChild(document.createElement('p')).innerText = `Kissan kärsivällisyys: ${+(status['Kisun kärsivällisyys']) - +(status['Käytetty kärsivällisyys'])}`
+
+})
+
+
+// kartan lisäys
 
 const iframe = document.createElement("iframe");
 iframe.src = "kartta.html";
