@@ -147,7 +147,7 @@ ohjeet.addEventListener('click', (e) => {
 pisteet.addEventListener('click', async function(e) {
   e.preventDefault();
 
-  const highscore = await fetch('http://127.0.0.1:3000/testipisteet');
+  const highscore = await fetch('http://127.0.0.1:3000/pistetaulukko');
   const resp = await highscore.json();
   let pelaajalista = [];
 
