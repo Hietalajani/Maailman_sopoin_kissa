@@ -29,7 +29,7 @@
   <body>
     <div id='map'></div>
     <script>
-      var koordinaatit = [{"icao":"EFHK","koord1": -24.9497, "koord2": 60.3183,"maa":"Suomi"}];
+      var koordinaatit = [{"icao":"EFHK","koord1": 24.9497, "koord2": 60.3183,"maa":"Suomi"}];
       var map = tt.map({
         container: 'map',
         key: 'Z6Vwy9RgKQfpTKtOV1Bkl5YA3uwusW79',
