@@ -1,6 +1,7 @@
 import config
 import json
 import requests
+from geopy import distance
 
 
 class Pelaaja:
@@ -27,7 +28,15 @@ class Pelaaja:
             self.hae_tiedot(self.tunnus)
 
         else:  # jos aloita on False, niin halutaan siirtää olemassaolevaa Pelaajaa
-            self.kursori.execute("UPDATE peli SET sijainti = %s WHERE id = %s", (kohde, peli_id))
+            self.kursori.execute("SELECT sijainti from peli where id= %s", peli_id)
+            vanhaicao = self.kursori.fetchone()
+            self.kursori.execute("SELECT leveyspiiri, pituuspiiri from lentokentta where icao = %s or icao = %s",
+                                 (vanhaicao, kohde))
+            koordinaatit = self.kursori.fetchone()
+            etaisyys = f"{distance.distance(koordinaatit[0], koordinaatit[1]).km:2f}"
+
+            self.kursori.execute("UPDATE peli SET sijainti = %s, kaytetty_karsivallisyys = %s  WHERE id = %s",
+                                 (kohde, etaisyys, peli_id))
 
             self.hae_tiedot(peli_id)
 
@@ -103,7 +112,7 @@ def hae_ilma(icao):
                 """
 
                 return json_vastaus
-    
+
         # Haku tuotti virheen
         except requests.exceptions.RequestException as e:
             print("Säähakua ei voitu suorittaa.")

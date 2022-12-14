@@ -26,6 +26,17 @@ body {
 dialog {
     height: 70%;
     width: 50%;
+
+    text-align: center;
+}
+
+dialog ul {
+    text-align: center;
+    list-style-type: none;
+}
+
+dialog ul li {
+    line-height: 3.2rem;
 }
 
 dialog div {
@@ -80,7 +91,8 @@ main {
 }
 
 .inventory ul li {
-    line-height: 3rem;
+    line-height: 2rem;
+    font-size: 12px;
 }
 
 .pääikkuna {
@@ -157,3 +169,20 @@ form p {
 #aloitapeli:hover {
     background-color: orange;
 }
+
+#marker {
+    background-image: url('156px-Map_marker.png');
+    background-size: cover;
+    width: 25px;
+    height: 35px;
+}
+
+#marker:hover {
+    cursor: pointer;
+}
+
+.invlista li img {
+    width: 50%;
+    height: 50%;
+}
+

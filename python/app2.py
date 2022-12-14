@@ -37,6 +37,14 @@ def pistetaulukko():
     json_data = peli3.pistetaulukko()
     return json_data
 
+# http://127.0.0.1:3000/ilma?icao=EETN
+@app.route('/ilma')
+def ilma():
+    args = request.args
+    icao = args.get("icao")
+    json_data = peli3.hae_ilma(icao)
+    return json_data
+
 
 if __name__ == '__main__':
     app.run(use_reloader=True, host='127.0.0.1', port=3000)

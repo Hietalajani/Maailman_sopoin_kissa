@@ -1,6 +1,8 @@
 import config
 import mysql.connector
 from random import randint
+from geopy import distance
+import requests
 
 config.yhteys = mysql.connector.connect(
     host='127.0.0.1',
@@ -14,25 +16,32 @@ config.yhteys = mysql.connector.connect(
 
 class Pelaaja:
     def __init__(self, nimi):
-
+        self.löydetty = None
         self.kursori = config.yhteys.cursor()
         self.sijainti = config.aloituspaikka
         self.nimi = nimi
-        self.käydyt = []
         self.esineet = {}   # sanakirja, johon arvotaan esineet löydettäväksi
 
     def to_json(self):
+        kissaicao = None
+        for sanakirja in self.esineet.values():
+            if sanakirja['esine'] == 'kissa':
+                kissaicao = sanakirja['sijainti']['icao']
+
         skirja = {
             "ID": self.tunnus,
             "Nimi": self.nimi,
             "Kisun kärsivällisyys": self.kisun_kärsivällisyys,
             "Käytetty kärsivällisyys": self.käytetty_kärsivällisyys,
-            "Sijainti": self.sijainti
+            "Sijainti": self.sijainti,
+            "Löydetty": self.löydetty,
+            "Herkut": self.esineet,
+            "kissaicao": kissaicao
         }
         return skirja
 
     def hae_tiedot(self, tunnus):
-        sql = f"SELECT * from peli where id = {tunnus};"
+        sql = f"SELECT * from peli where id = '{tunnus}';"
         self.kursori.execute(sql)
         muut_tiedot = self.kursori.fetchone()
 
@@ -46,7 +55,29 @@ class Pelaaja:
     def matkusta(self, icao, peli_id):
         # jos yritettiin kutsua oikealla ID-arvolla
         if int(peli_id) == self.tunnus:
-            self.kursori.execute("UPDATE peli SET sijainti = %s WHERE id = %s", (icao, self.tunnus))
+            sql = f"SELECT sijainti FROM peli WHERE id = '{peli_id}';"
+            self.kursori.execute(sql)
+            vanhaicao = self.kursori.fetchone()
+            sql = f"SELECT leveyspiiri, pituuspiiri from lentokentta where icao = '{vanhaicao[0]}' or icao = '{icao}';"
+            self.kursori.execute(sql)
+            koordinaatit = self.kursori.fetchall()
+            print(koordinaatit)
+            etaisyys = f"{distance.distance(koordinaatit[0], koordinaatit[1]).km}"
+
+            self.käytetty_kärsivällisyys += int(float(etaisyys))
+
+            for key, value in self.esineet.items():
+                if value['sijainti']['icao'] == icao:
+                    self.käytetty_kärsivällisyys -= value['pisteet']
+                    print(value['pisteet'])
+                    print(self.käytetty_kärsivällisyys)
+                    self.löydetty = value['esine']
+                    print(self.löydetty)
+                    value['esine'] = 'null'
+                    value['pisteet'] = 0
+
+            sql = f"UPDATE peli SET sijainti = '{icao}', kaytetty_karsivallisyys = '{self.käytetty_kärsivällisyys}' WHERE id = '{peli_id}';"
+            self.kursori.execute(sql)
 
         self.hae_tiedot(self.tunnus)
 
@@ -108,6 +139,7 @@ class Pelaaja:
                     "pisteet": esine[2],
                     "sijainti": self.kentät[num]
                 }
+        return
 
 
 def pistetaulukko():
@@ -129,6 +161,42 @@ def pistetaulukko():
     return ret_json
 
 
+# hakee säätiedot OpenWeatherMapin APIsta
+# https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid={API key}
+def hae_ilma(icao):
+    kursori = config.yhteys.cursor()
+    kursori.execute("SELECT leveyspiiri, pituuspiiri FROM lentokentta WHERE icao=%s;", (icao,))
+    koord = kursori.fetchone()
+    # print(koord) # testiprintti
+
+    if koord:
+        pyyntö = f"https://api.openweathermap.org/data/2.5/weather?lat={koord[0]}&lon={koord[1]}&appid={config.apikey}&lang=fi"
+        try:
+            vastaus = requests.get(pyyntö)
+            if vastaus.status_code == 200:
+                json_vastaus = vastaus.json()
+                # lämpötila Celsius-asteiksi
+                json_vastaus["main"]["temp"] -= 273.15
+
+                """
+                # kuvaus suomeksi
+                desc = json_vastaus["weather"][0]["description"]
+                celsius = json_vastaus["main"]["temp"]
+
+                # tulostetaan halutun kaupungin säätila ja lämpötila celsius-asteissa
+                print(f"\nPaikan {icao} säätila on {desc}\n"
+                      f"\tLämpötila on {celsius:.1f} celsiusastetta.")
+                """
+
+                return json_vastaus
+
+        # Haku tuotti virheen
+        except requests.exceptions.RequestException as e:
+            print("Säähakua ei voitu suorittaa.")
+    else:
+        raise Exception("Virheellinen ICAO-koodi.")
+
+
 sessioukko = Pelaaja("Placeholder")
 
 
@@ -140,3 +208,4 @@ if __name__ == "__main__":
         print(kenttä_n["maa"])
     for testine in testi.esineet.values():
         print(testine)
+
