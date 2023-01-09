@@ -12,3 +12,5 @@ Screenshotteja pelistä:
 ![Pistetaulukko](https://imgur.com/qgFtmMg)
 
 Ei päivitetty peliä enää esittelyn jälkeen, vaikutitte molemmat suhteellisen tyytyväisiltä :D
+
+jos kuvat ei toimi niin tässä linkki: https://imgur.com/a/IAGi2zd
